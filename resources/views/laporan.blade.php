@@ -23,8 +23,16 @@ Laporan
         <div class="row" id="filterPJL">
         </div>
         <br>
-        <a class="btn btn-dark mb-3" type="button" href="{{ route('penjualanExport') }}">
-            Export Excel</a>
+        <a class="btn btn-dark mb-3" type="button" href="{{ route('penjualanExport') }}">Export Excel</a>
+        <table id="tableTotalLaporan_PJL" class="table table-hover table-responsive w-auto" style="color: black">
+            <thead>
+                <tr>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="total">
+            </tbody>
+        </table>
         <table id="tableLaporan_PJL" class="table table-hover table-responsive w-auto" style="color: black">
             <div class="mb-3">
                 <input type="text" id="searchPenjualan" class="form-control" placeholder="Cari Penjualan">
@@ -54,8 +62,16 @@ Laporan
         <div class="row" id="filterPBL">
         </div>
         <br>
-        <a class="btn btn-dark mb-3" type="button" href="{{ route('pembelianExport') }}">
-            Export Excel</a>
+        <a class="btn btn-dark mb-3" type="button" href="{{ route('pembelianExport') }}">Export Excel</a>
+        <table id="tableTotalLaporan_PBL" class="table table-hover table-responsive w-auto" style="color: black">
+            <thead>
+                <tr>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="total_pbl">
+            </tbody>
+        </table>
         <table id="tableLaporan_PBL" class="table table-hover table-responsive w-auto" style="color: black">
             <div class="mb-3">
                 <input type="text" id="searchPembelian" class="form-control" placeholder="Cari Pembelian">
@@ -419,6 +435,16 @@ Laporan
         htmlFilter += '<button onclick="filterPJL()" class="btn btn-primary">Filter</button>';
         htmlFilter += '</div>';
         $('#filterPJL').html(htmlFilter);
+        
+        var totalHarga = 0;
+
+        $.each(laporanData, function (index, pjl) {
+            totalHarga += parseFloat(pjl.total_harga);
+        });
+        
+        var htmlTotal = '<th>Rp ' + totalHarga.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '</th>';
+        $('#total').html(htmlTotal);
+
     }
 
     function templetPBL(data){
@@ -456,6 +482,16 @@ Laporan
         htmlFilter += '<button onclick="filterPBL()" class="btn btn-primary">Filter</button>';
         htmlFilter += '</div>';
         $('#filterPBL').html(htmlFilter);
+        
+        var totalHarga = 0;
+
+        $.each(laporanData, function (index, pbl) {
+            totalHarga += parseFloat(pbl.total_harga);
+        });
+        
+        var htmlTotal = '<th>Rp ' + totalHarga.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '</th>';
+        $('#total_pbl').html(htmlTotal);
+
     }
 
     function templetFilter(data){
