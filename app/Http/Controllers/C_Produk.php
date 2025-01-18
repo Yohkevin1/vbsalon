@@ -58,7 +58,7 @@ class C_Produk extends Controller
         $foto = $request->file('foto');
         if ($foto && $foto->isValid()) {
             $namaFile = $foto->hashName();
-            $foto->move(public_path('images/produk/'), $namaFile);
+            $foto->move('images/produk/', $namaFile);
         } else {
             $namaFile = 'produk.png';
         }

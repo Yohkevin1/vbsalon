@@ -49,7 +49,7 @@ class C_Jasa extends Controller
         $foto = $request->file('foto');
         if ($foto && $foto->isValid()) {
             $namaFile = $foto->hashName();
-            $foto->move(public_path('images/jasa/'), $namaFile);
+            $foto->move('images/jasa/', $namaFile);
         } else {
             $namaFile = 'jasa.png';
         }
